@@ -39,12 +39,15 @@ def repeating_perms(arr, length, reps):
     return permutations
 
 start = int(input('введите номер задания: '))
-if start == 1:
+if start == 1: 
+#первое задание
     nums = [1, 2, 3, 4]
     print(len(narayana_permutations(nums, 3)))
 elif start == 2:
+#второе задание
     nums = list(map(int, input('введите 3 числа через пробел: ').split()))
     print(narayana_permutations(nums, 2))
 elif start == 3:
+#третье задание
     lessons =['математика', 'информатика', 'русский язык']
     print(repeating_perms(lessons, 3, int(input('введите сколько уроков может повторяться: '))))
