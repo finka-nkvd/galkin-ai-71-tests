@@ -1,0 +1,50 @@
+from itertools import permutations
+def narayana_permutations(arr, length):
+    if length > len(arr):
+        return 'длина перестановки не может быть больше длины списка'
+
+    def next_permutation(a):
+        n = len(a)
+        i = n - 2
+        while i >= 0 and a[i] >= a[i + 1]:
+            i -= 1
+        if i == -1:
+            return False
+        j = n - 1
+        while a[j] <= a[i]:
+            j -= 1
+        a[i], a[j] = a[j], a[i]
+        a[i + 1:] = reversed(a[i + 1:])
+        return True
+
+    arr = sorted(arr)
+    permutations = [arr[:length]]
+    while next_permutation(arr):
+        permutations.append(arr[:length])
+    return permutations
+
+def repeating_perms(arr, length, reps):
+    def generate_permutations(current, remaining_length):
+        if remaining_length == 0:
+            permutations.append(current[:])
+        else:
+            for num in arr:
+                if current.count(num) < reps:
+                    current.append(num)
+                    generate_permutations(current, remaining_length - 1)
+                    current.pop()
+
+    permutations = []
+    generate_permutations([], length)
+    return permutations
+
+start = int(input('введите номер задания: '))
+if start == 1:
+    nums = [1, 2, 3, 4]
+    print(len(narayana_permutations(nums, 3)))
+elif start == 2:
+    nums = list(map(int, input('введите 3 числа через пробел: ').split()))
+    print(narayana_permutations(nums, 2))
+elif start == 3:
+    lessons =['математика', 'информатика', 'русский язык']
+    print(repeating_perms(lessons, 3, int(input('введите сколько уроков может повторяться: '))))
